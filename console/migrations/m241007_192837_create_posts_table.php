@@ -1,0 +1,32 @@
+<?php
+
+use yii\db\Migration;
+
+/**
+ * Handles the creation of table `{{%posts}}`.
+ */
+class m241007_192837_create_posts_table extends Migration
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function safeUp()
+    {
+        $this->createTable('{{%posts}}', [
+            'id' => $this->primaryKey(),
+            'name' => $this->string(),
+            'content' => $this->string(),
+            'upvote' => $this->integer()->defaultValue(0),
+            'downvote' => $this->integer()->defaultValue(0),
+            'created_at' => $this->date()->defaultExpression('CURRENT_TIMESTAMP')
+        ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function safeDown()
+    {
+        $this->dropTable('{{%posts}}');
+    }
+}
