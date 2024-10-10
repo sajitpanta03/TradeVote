@@ -11,6 +11,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use common\models\Post;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
@@ -265,6 +266,9 @@ class SiteController extends Controller
 
     public function actionLandingPage()
     {
-        return $this->render('landing_page');
+        $posts = Post::find()
+            ->orderBy(['id' => SORT_DESC])
+            ->all();
+        return $this->render('landing_page', ['posts' => $posts]);
     }
 }

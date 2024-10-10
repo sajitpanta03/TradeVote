@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workingSetManager>
+<workingSet editPageId="org.eclipse.jdt.internal.ui.DynamicSourcesWorkingSet" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1728569868086_0" label="Java Main Sources" name="Java Main Sources"/>
+<workingSet editPageId="org.eclipse.jdt.internal.ui.DynamicSourcesWorkingSet" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1728569868115_1" label="Java Test Sources" name="Java Test Sources"/>
+<workingSet editPageId="org.eclipse.php.ui.workingset.PHPWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1728572096810_4" label="tradevote" name="tradevote">
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/TradeVote" type="4"/>
+</workingSet>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1728569869118_2" label="Window Working Set" name="Aggregate for window 1728569869117"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1728571787259_3" label="Window Working Set" name="Aggregate for window 1728571787259"/>
+<mruList name="tradevote"/>
+</workingSetManager>

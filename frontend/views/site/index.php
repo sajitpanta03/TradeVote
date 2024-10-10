@@ -8,18 +8,10 @@ $this->title = 'My Yii Application';
     <div class="p-5 mb-4 bg-transparent rounded-3">
         <div class="container-fluid py-5 text-center">
             <h1 class="text-success fw-bold display-4">Welcome to Trade Vote</h1>
+            <img src="<?= Yii::getAlias('@web') ?>/assets/Photos/logo.png" alt="">
         </div>
     </div>
-
-    <div class="body-content">
-        <p>lorem123</p>
-    </div>
-    <div class="mx-auto">
-        <img src="../../assets/Photos/logo.png" alt="">
-    </div>
-
 </div>
-
 
 <style>
     body {

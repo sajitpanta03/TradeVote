@@ -10,6 +10,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <h1><?= Html::encode($this->title) ?></h1>
 
+<div class="d-flex justify-content-end">
+    <a href="create">
+        <img width="50" height="50" src="https://img.icons8.com/ios-filled/50/add--v1.png" alt="add--v1"/>    
+    </a>    
+</div>
 
 <table class="table table-dark">
             <thead>
@@ -17,6 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <th scope="col">S.No</th>
                     <th scope="col">Name</th>
                     <th scope="col">Content</th>
+                    <th scope="">Action</th>
                 </tr>
             </thead>
             <?php if (!empty($posts)): ?>
@@ -30,6 +36,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     </th>
                     <td><?= Html::encode($post->name) ?></td>
                     <td><?= Html::encode($post->content) ?></td>
+                    <td>
+                        <a class="" href=""><?php echo "edit"; ?>&nbsp;</a>
+                        <a class="text-danger" href=""><?php echo "delete"; ?></a>
+                    </td>
                 </tr>
             </tbody>
         <?php endforeach; ?>

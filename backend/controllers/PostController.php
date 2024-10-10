@@ -2,8 +2,8 @@
 
 namespace backend\controllers;
 
-use backend\models\Post;
-use yii\data\Sort;
+use common\models\Post;
+use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -33,6 +33,12 @@ class PostController extends Controller
                         'allow' => '@',
                         'roles' => ['@']
                     ],
+                    [
+                        'actions' => ['create'],
+                        'allow' => '@',
+                        'roles' => ['@']
+                    ],
+
                 ],
             ],
             'verbs' => [
@@ -56,6 +62,11 @@ class PostController extends Controller
         ];
     }
 
+    public function actionPerviousPostAnalysis()
+    {
+        return $this->render('pervious_post_analysis');
+    }
+
     public function actionPostData()
     {
         $posts = Post::find()
@@ -65,8 +76,18 @@ class PostController extends Controller
         return $this->render('post_data', ['posts' => $posts]);
     }
 
-    public function actionPerviousPostAnalysis()
+    public function actionCreate()
     {
-        return $this->render('pervious_post_analysis');
+        $model = new Post();
+
+    if (Yii::$app->request->isPost) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->save()) {
+            return $this->redirect(['post-data']);
+        }
     }
+    return $this->render('create', [
+        'model' => $model,
+    ]);
+}
+
 }
