@@ -3,11 +3,14 @@
 namespace backend\controllers;
 
 use common\models\Post;
+use common\models\Vote;
 use Yii;
-use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
+use yii\web\BadRequestHttpException;
 use yii\web\Controller;
-
+use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 
 /**
  * Site controller
@@ -26,17 +29,27 @@ class PostController extends Controller
                     [
                         'actions' => ['post-data'],
                         'allow' => '@',
-                        'roles' => ['@']
+                        'roles' => ['@'],
                     ],
                     [
                         'actions' => ['pervious-post-analysis'],
                         'allow' => '@',
-                        'roles' => ['@']
+                        'roles' => ['@'],
                     ],
                     [
                         'actions' => ['create'],
                         'allow' => '@',
-                        'roles' => ['@']
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['edit'],
+                        'allow' => '@',
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['delete'],
+                        'allow' => '@',
+                        'roles' => ['@'],
                     ],
 
                 ],
@@ -64,8 +77,26 @@ class PostController extends Controller
 
     public function actionPerviousPostAnalysis()
     {
-        return $this->render('pervious_post_analysis');
+        $currentDate = Yii::$app->formatter->asDate('now', 'php:Y-m-d');
+    
+        $previousPostVotes = Vote::find()
+            ->select([
+                'post_id',
+                'posts.name AS post_name', 
+                'SUM(CASE WHEN votes_type = 1 THEN 1 ELSE 0 END) AS upvote_count',
+                'SUM(CASE WHEN votes_type = -1 THEN 1 ELSE 0 END) AS downvote_count'
+            ])
+            ->leftJoin('posts', 'votes.post_id = posts.id') 
+            ->where(['=', 'DATE(votes.created_at)', $currentDate])
+            ->groupBy(['votes.post_id', 'posts.name'])
+            ->orderBy(['votes.post_id' => SORT_ASC])
+            ->asArray()
+            ->all();
+    
+        return $this->render('pervious_post_analysis', ['previousPostVotes' => $previousPostVotes]);
     }
+    
+    
 
     public function actionPostData()
     {
@@ -80,14 +111,60 @@ class PostController extends Controller
     {
         $model = new Post();
 
-    if (Yii::$app->request->isPost) {
-        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->save()) {
-            return $this->redirect(['post-data']);
+        if (Yii::$app->request->isPost) {
+            if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+                $model->image = UploadedFile::getInstance($model, 'image');
+                $fileName = time() . '-' . $model->image->extension;
+                $model->image->saveAs('uploads/'. $fileName);
+                $model->image = $fileName;
+                $model->save();
+                return $this->redirect(['post-data']);
+            }
+        }
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionEdit($id)
+    {
+        $model = Post::findOne($id);
+
+        if (Yii::$app->request->isPost) {
+            if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+                $model->image = UploadedFile::getInstance($model, 'image');
+                $fileName = time() . '-' . $model->image->extension;
+                $model->image->saveAs('uploads/'. $fileName);
+                $model->image = $fileName;
+                $model->save();
+                return $this->redirect(['post-data']);
+            }
+        }
+        return $this->render('edit', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionDelete($id)
+    {
+        $model = Post::findOne($id);
+
+        if ($model === null) {
+            throw new NotFoundHttpException("This post was not available");
+        }
+
+        if (Yii::$app->request->isPost) {
+            if ($model->delete()) {
+                Yii::$app->session->setFlash('success', 'Post deleted successfully.');
+            } else {
+                Yii::$app->session->setFlash('error', 'Failed to delete the post.');
+            }
+            return $this->redirect(['post/post-data']);
+        } else {
+            throw new BadRequestHttpException('Invalid request method.');
         }
     }
-    return $this->render('create', [
-        'model' => $model,
-    ]);
-}
 
 }

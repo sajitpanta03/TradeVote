@@ -2,20 +2,21 @@
 
 /** @var yii\web\View $this */
 
-$this->title = 'My Yii Application';
+use yii\helpers\Html;
+
+$this->title = 'Admin Panel';
 ?>
-<div class="site-index">
-<form>
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Image</label>
-    <input type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Post Name</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+<div class="site-index d-flex align-items-center justify-content-center" style="min-height: 100vh; background: linear-gradient(135deg, #1e90ff, #f64f59);">
+
+    <div class="text-center">
+
+        <h1 class="display-1 text-white fw-bold" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);">
+            <?= Html::encode($this->title) ?>
+        </h1>
+
+        <div class="mt-4">
+            <a href="<?= \yii\helpers\Url::to(['post/post-data']) ?>" class="btn btn-outline-light btn-lg mx-2">Manage Posts</a>
+        </div>
+
     </div>
 </div>

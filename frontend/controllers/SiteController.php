@@ -2,20 +2,21 @@
 
 namespace frontend\controllers;
 
+use common\models\LoginForm;
+use common\models\Post;
+use common\models\Vote;
+use frontend\models\ContactForm;
+use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResendVerificationEmailForm;
+use frontend\models\ResetPasswordForm;
+use frontend\models\SignupForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-use common\models\LoginForm;
-use common\models\Post;
-use frontend\models\PasswordResetRequestForm;
-use frontend\models\ResetPasswordForm;
-use frontend\models\SignupForm;
-use frontend\models\ContactForm;
 
 /**
  * Site controller
@@ -46,7 +47,7 @@ class SiteController extends Controller
                     [
                         'actions' => ['landing-page'],
                         'allow' => '@',
-                        'roles' => ['@']
+                        'roles' => ['@'],
                     ],
                 ],
             ],
@@ -260,7 +261,7 @@ class SiteController extends Controller
         }
 
         return $this->render('resendVerificationEmail', [
-            'model' => $model
+            'model' => $model,
         ]);
     }
 
@@ -270,5 +271,58 @@ class SiteController extends Controller
             ->orderBy(['id' => SORT_DESC])
             ->all();
         return $this->render('landing_page', ['posts' => $posts]);
+    }
+
+    public function actionCastVote($id, $type, $post_id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect('login');
+        }
+
+        $currentDate = Yii::$app->formatter->asDate('now', 'php:Y-m-d');
+
+        $userId = Yii::$app->user->id;
+
+        $existingVote = Vote::find()
+            ->where(['user_id' => $userId, 'user_id' => $id])
+            ->andWhere(['post_id' => $post_id])
+            ->andWhere(['=', 'DATE(created_at)', $currentDate])
+            ->one();
+
+        if ($existingVote) {
+            Yii::$app->session->setFlash('error', 'You have already voted today.');
+            return $this->redirect(['site/landing-page', 'id' => $id]);
+        }
+
+        $post = Post::findOne($post_id);
+
+        if (!$post) {
+            Yii::$app->session->setFlash('error', 'Post not found.');
+            return $this->redirect(['site/landing-page', 'id' => $id]);
+        }
+
+        $vote = new Vote();
+        $vote->user_id = $userId;
+        $vote->post_id = $post_id;
+        $vote->created_at = Yii::$app->formatter->asDatetime('now', 'php:Y-m-d H:i:s');
+
+        if ($type === 'upvote') {
+            $vote->votes_type = 1;
+            $post->upvote += 1;
+        } elseif ($type === 'downvote') {
+            $vote->votes_type = -1;
+            $post->downvote += 1;
+        } else {
+            Yii::$app->session->setFlash('error', 'Invalid vote type.');
+            return $this->redirect(['site/landing-page', 'id' => $id]);
+        }
+
+        if ($vote->save() && $post->update()) {
+            Yii::$app->session->setFlash('success', 'Vote cast successfully!');
+        } else {
+            Yii::$app->session->setFlash('error', 'Error casting the vote.');
+        }
+
+        return $this->redirect(['site/landing-page', 'id' => $id]);
     }
 }

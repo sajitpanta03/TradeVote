@@ -16,6 +16,7 @@ class m241007_192837_create_posts_table extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string(),
             'content' => $this->string(),
+            'image' => $this->string(255)->notNull(),
             'upvote' => $this->integer()->defaultValue(0),
             'downvote' => $this->integer()->defaultValue(0),
             'created_at' => $this->date()->defaultExpression('CURRENT_TIMESTAMP')

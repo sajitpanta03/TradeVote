@@ -1,0 +1,11 @@
+Unknown command: reset-votes
+Caused by: Exception 'yii\base\InvalidRouteException' with message 'Unable to resolve the request "reset-votes".'
+
+in /opt/lampp/htdocs/TradeVote/vendor/yiisoft/yii2/base/Module.php:561
+
+Stack trace:
+#0 /opt/lampp/htdocs/TradeVote/vendor/yiisoft/yii2/console/Application.php(180): yii\base\Module->runAction()
+#1 /opt/lampp/htdocs/TradeVote/vendor/yiisoft/yii2/console/Application.php(147): yii\console\Application->runAction()
+#2 /opt/lampp/htdocs/TradeVote/vendor/yiisoft/yii2/base/Application.php(384): yii\console\Application->handleRequest()
+#3 /opt/lampp/htdocs/TradeVote/yii(23): yii\base\Application->run()
+#4 {main}
