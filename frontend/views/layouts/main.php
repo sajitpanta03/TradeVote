@@ -11,6 +11,10 @@ use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
 
 AppAsset::register($this);
+
+$this->registerJsFile('https://code.jquery.com/jquery-3.6.0.min.js', [
+    'position' => \yii\web\View::POS_HEAD,
+]);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

@@ -78,25 +78,23 @@ class PostController extends Controller
     public function actionPerviousPostAnalysis()
     {
         $currentDate = Yii::$app->formatter->asDate('now', 'php:Y-m-d');
-    
+
         $previousPostVotes = Vote::find()
             ->select([
                 'post_id',
-                'posts.name AS post_name', 
+                'posts.name AS post_name',
                 'SUM(CASE WHEN votes_type = 1 THEN 1 ELSE 0 END) AS upvote_count',
-                'SUM(CASE WHEN votes_type = -1 THEN 1 ELSE 0 END) AS downvote_count'
+                'SUM(CASE WHEN votes_type = -1 THEN 1 ELSE 0 END) AS downvote_count',
             ])
-            ->leftJoin('posts', 'votes.post_id = posts.id') 
+            ->leftJoin('posts', 'votes.post_id = posts.id')
             ->where(['=', 'DATE(votes.created_at)', $currentDate])
             ->groupBy(['votes.post_id', 'posts.name'])
             ->orderBy(['votes.post_id' => SORT_ASC])
             ->asArray()
             ->all();
-    
+
         return $this->render('pervious_post_analysis', ['previousPostVotes' => $previousPostVotes]);
     }
-    
-    
 
     public function actionPostData()
     {
@@ -116,7 +114,7 @@ class PostController extends Controller
 
                 $model->image = UploadedFile::getInstance($model, 'image');
                 $fileName = time() . '-' . $model->image->extension;
-                $model->image->saveAs('uploads/'. $fileName);
+                $model->image->saveAs('uploads/' . $fileName);
                 $model->image = $fileName;
                 $model->save();
                 return $this->redirect(['post-data']);
@@ -136,7 +134,7 @@ class PostController extends Controller
 
                 $model->image = UploadedFile::getInstance($model, 'image');
                 $fileName = time() . '-' . $model->image->extension;
-                $model->image->saveAs('uploads/'. $fileName);
+                $model->image->saveAs('uploads/' . $fileName);
                 $model->image = $fileName;
                 $model->save();
                 return $this->redirect(['post-data']);

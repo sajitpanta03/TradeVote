@@ -1,3 +1,8 @@
+<?php
+
+use yii\helpers\Html;
+?>
+
 <table class="table">
     <thead>
         <tr>
@@ -8,15 +13,12 @@
     </thead>
     <tbody>
         <?php
-
-use yii\helpers\Html;
-
- foreach ($previousPostVotes as $postVotes): ?>
+foreach ($previousPostVotes as $postVotes): ?>
             <tr>
-                <td><?= Html::encode($postVotes['post_name']) ?></td> 
-                <td><?= Html::encode($postVotes['upvote_count']) ?></td>
-                <td><?= Html::encode($postVotes['downvote_count']) ?></td>
+                <td><?=Html::encode($postVotes['post_name'])?></td>
+                <td><?=Html::encode($postVotes['upvote_count'])?></td>
+                <td><?=Html::encode($postVotes['downvote_count'])?></td>
             </tr>
-        <?php endforeach; ?>
+        <?php endforeach;?>
     </tbody>
 </table>

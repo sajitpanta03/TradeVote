@@ -20,7 +20,7 @@
         "yiisoft/yii2-symfonymailer": "~2.0.3"
     },
     "require-dev": {
-        "yiisoft/yii2-debug": "~2.1.0",
+        "yiisoft/yii2-debug": "^2.1",
         "yiisoft/yii2-gii": "~2.2.0",
         "yiisoft/yii2-faker": "~2.0.0",
         "phpunit/phpunit": "~9.5.0",

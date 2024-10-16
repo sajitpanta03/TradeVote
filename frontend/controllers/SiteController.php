@@ -283,18 +283,19 @@ class SiteController extends Controller
 
         $userId = Yii::$app->user->id;
 
+
+        $post = Post::findOne($post_id);
+
         $existingVote = Vote::find()
-            ->where(['user_id' => $userId, 'user_id' => $id])
+            ->where(['user_id' => $id])
             ->andWhere(['post_id' => $post_id])
-            ->andWhere(['=', 'DATE(created_at)', $currentDate])
+            ->andWhere(['created_at' => $currentDate])
             ->one();
 
         if ($existingVote) {
             Yii::$app->session->setFlash('error', 'You have already voted today.');
             return $this->redirect(['site/landing-page', 'id' => $id]);
         }
-
-        $post = Post::findOne($post_id);
 
         if (!$post) {
             Yii::$app->session->setFlash('error', 'Post not found.');
