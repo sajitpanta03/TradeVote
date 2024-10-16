@@ -15,4 +15,10 @@ $config = yii\helpers\ArrayHelper::merge(
     require __DIR__ . '/../config/main-local.php'
 );
 
+// Load environment variables
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
+$dotenv->load();
+
+$config = require __DIR__ . '/../config/main.php';
+
 (new yii\web\Application($config))->run();

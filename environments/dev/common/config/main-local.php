@@ -4,11 +4,18 @@ return [
     'components' => [
         'db' => [
             'class' => \yii\db\Connection::class,
-            'dsn' => 'mysql:host=127.0.0.1;dbname=tradevote',
+            'dsn' => 'mysql:host=' .getenv('DB_HOST') . 'dbname=tradevote',
             'username' => 'root',
             'password' => '',
             'charset' => 'utf8',
         ],
+        // 'db2' => [
+        //     'class' => \yii\db\Connection::class,
+        //     'dsn' => 'mysql:host=127.0.0.1;dbname=tradevote2',
+        //     'username' => 'root',
+        //     'password' => '',
+        //     'charset' => 'utf8',
+        // ],
         'mailer' => [
             'class' => \yii\symfonymailer\Mailer::class,
             'viewPath' => '@common/mail',
