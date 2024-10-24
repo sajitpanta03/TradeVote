@@ -1,0 +1,60 @@
+{
+	"name": "diecoding/yii2-seeder",
+	"description": "Create fast-fill database with fake data or bulk data for Yii2",
+	"type": "library",
+	"keywords": [
+		"yii2",
+		"extension",
+		"console",
+		"seeder",
+		"faker"
+	],
+	"homepage": "https://github.com/sugeng-sulistiyawan/yii2-seeder",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Sugeng Sulistiyawan",
+			"email": "sugeng.sulistiyawan@gmail.com"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/sugeng-sulistiyawan/yii2-seeder/issues",
+		"source": "https://github.com/sugeng-sulistiyawan/yii2-seeder"
+	},
+	"funding": [
+		{
+			"type": "github",
+			"url": "https://github.com/sponsors/sugeng-sulistiyawan"
+		}
+	],
+	"require": {
+		"php": ">=7.4.0",
+		"yiisoft/yii2": "~2.0",
+		"yiisoft/yii2-faker": "~2.0"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "~9.5.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"diecoding\\seeder\\": "src/"
+		}
+	},
+    "autoload-dev": {
+        "psr-4": {
+            "diecoding\\seeder\\tests\\": "tests/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
+    "config": {
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true
+        },
+        "sort-packages": true
+    }
+}

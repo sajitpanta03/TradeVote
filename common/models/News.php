@@ -10,7 +10,6 @@ use Yii;
  * @property int $id
  * @property string|null $title
  * @property string|null $content
- * @property string $image
  * @property string|null $created_at
  */
 class News extends \yii\db\ActiveRecord
@@ -32,6 +31,7 @@ class News extends \yii\db\ActiveRecord
             [['content'], 'string'],
             [['image'], 'required'],
             [['created_at'], 'safe'],
+            [['author_name'], 'required'],
             [['title', 'image'], 'string', 'max' => 255],
         ];
     }

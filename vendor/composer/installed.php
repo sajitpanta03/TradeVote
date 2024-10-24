@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'yiisoft/yii2-app-advanced',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '608b259734b870071cf0e90f801e334595e5003c',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'behat/gherkin' => array(
-            'pretty_version' => 'v4.9.0',
-            'version' => '4.9.0.0',
-            'reference' => '0bc8d1e30e96183e4f36db9dc79caead300beff4',
+            'pretty_version' => 'v4.10.0',
+            'version' => '4.10.0.0',
+            'reference' => 'cbb83c4c435dd8d05a161f2a5ae322e61b2f4db6',
             'type' => 'library',
             'install_path' => __DIR__ . '/../behat/gherkin',
             'aliases' => array(),
@@ -160,6 +160,15 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
+        'diecoding/yii2-seeder' => array(
+            'pretty_version' => 'v1.1.1',
+            'version' => '1.1.1.0',
+            'reference' => '49c596471981d54b4111dc0de7c8d7233ae518a6',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../diecoding/yii2-seeder',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'doctrine/instantiator' => array(
             'pretty_version' => '2.0.0',
             'version' => '2.0.0.0',
@@ -203,7 +212,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../fakerphp/faker',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'graham-campbell/result-type' => array(
             'pretty_version' => 'v1.1.3',
@@ -262,9 +271,9 @@
             'dev_requirement' => true,
         ),
         'nikic/php-parser' => array(
-            'pretty_version' => 'v5.3.0',
-            'version' => '5.3.0.0',
-            'reference' => '3abf7425cd284141dc5d8d14a9ee444de3345d1a',
+            'pretty_version' => 'v5.3.1',
+            'version' => '5.3.1.0',
+            'reference' => '8eea230464783aa9671db8eea6f8c6ac5285794b',
             'type' => 'library',
             'install_path' => __DIR__ . '/../nikic/php-parser',
             'aliases' => array(),
@@ -823,9 +832,9 @@
             'dev_requirement' => false,
         ),
         'yiisoft/yii2-app-advanced' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '608b259734b870071cf0e90f801e334595e5003c',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -874,7 +883,7 @@
             'type' => 'yii2-extension',
             'install_path' => __DIR__ . '/../yiisoft/yii2-faker',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'yiisoft/yii2-gii' => array(
             'pretty_version' => '2.2.6',

@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\Course;
 use common\models\LoginForm;
+use common\models\News;
 use common\models\Post;
 use common\models\Vote;
 use frontend\models\ContactForm;
@@ -85,8 +86,12 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $courses = Course::find()->all();
+        $news = News::find()->orderBy(['id' => 'SORT_ASC'])->all();
 
-        return $this->render('index', ['courses' => $courses]);
+        return $this->render(
+            'index',
+            ['courses' => $courses, 'news' => $news],
+        );
     }
 
     /**

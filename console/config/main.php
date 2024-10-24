@@ -32,5 +32,43 @@ return [
             ],
         ],
     ],
+    'controllerMap' => [
+        // ...
+        'seeder' => [
+            'class' => \diecoding\seeder\SeederController::class,
+    
+            /** @var string the default command action. */
+            'defaultAction' => 'seed',
+    
+            /** @var string seeder path, support path alias */
+            'seederPath' => '@console/seeder',
+    
+            /** @var string seeder namespace */
+            'seederNamespace' => 'console\seeder',
+    
+            /** 
+             * @var string this class look like `$this->seederNamespace\Seeder` 
+             * default seeder class run if no class selected, 
+             * must instance of `\diecoding\seeder\TableSeeder` 
+             */
+            'defaultSeederClass' => 'Seeder',
+    
+            /** @var string tables path, support path alias */
+            'tablesPath' => '@console/seeder/tables',
+    
+            /** @var string seeder table namespace */
+            'tableSeederNamespace' => 'console\seeder\tables',
+    
+            /** @var string model namespace */
+            'modelNamespace' => 'common\models',
+    
+            /** @var string path view template table seeder, support path alias */
+            'templateSeederFile' => '@vendor/diecoding/yii2-seeder/src/views/Seeder.php',
+    
+            /** @var string path view template seeder, support path alias */
+            'templateTableFile' => '@vendor/diecoding/yii2-seeder/src/views/TableSeeder.php',
+        ],
+        // ...
+    ],
     'params' => $params,
 ];

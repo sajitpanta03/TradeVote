@@ -17,6 +17,7 @@ class m241023_084310_create_news_table extends Migration
             'title' => $this->string(),
             'content' => $this->text(),
             'image' => $this->string()->notNull(),
+            'author_name' => $this->string(20),
             'created_at' => $this->date()->defaultExpression('CURRENT_TIMESTAMP'),
         ]);
     }

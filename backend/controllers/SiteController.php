@@ -93,20 +93,20 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
-        $this->layout = 'blank';
-
         $model = new LoginForm();
 
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
-            if ($model->type == 1) {
-                Yii::$app->session->setFlash('success', 'Welcome to tradevote admin.');
+            if (!$model->user->type == 1) {
+                Yii::$app->session->setFlash('error', 'Login failed or unauthorized access.');
                 return $this->goBack();
             }
+
+            if ($model->login()) {
+                return $this->redirect('/backend/web/post/post-data');
+            }
+            Yii::$app->session->setFlash('error', 'Login failed or unauthorized access.');
+            return $this->goBack();
         }
 
         $model->password = '';
@@ -115,6 +115,7 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
 
     /**
      * Logout action.
