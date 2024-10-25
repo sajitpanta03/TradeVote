@@ -86,7 +86,7 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $courses = Course::find()->all();
-        $news = News::find()->orderBy(['id' => 'SORT_ASC'])->all();
+        $news = News::find()->orderBy(['id' => SORT_DESC])->all();
 
         return $this->render(
             'index',
@@ -107,10 +107,8 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            if ($model->type == 0) {
-                Yii::$app->session->setFlash('success', 'Welcome to tradevote.');
-                return $this->redirect(['landing-page']);
-            }
+            Yii::$app->session->setFlash('success', 'Welcome to tradevote.');
+            return $this->redirect(['landing-page']);
         }
 
         $model->password = '';

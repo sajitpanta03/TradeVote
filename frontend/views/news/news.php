@@ -8,34 +8,52 @@ use yii\helpers\Url;
 <section class="section pt-0">
     <div class="container">
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 text-center mb-5">
                 <h2 class="section-title">Latest News</h2>
             </div>
         </div>
-        <?php  foreach ($news as $new): ?>
-            <div class="row justify-content-center">
-                <!-- blog post -->
-                <article class="col-lg-4 col-sm-6 mb-5 mb-lg-0">
-                    <div
-                        class="card rounded-0 border-bottom border-primary border-top-0 border-left-0 border-right-0 hover-shadow">
-                        <?= Html::img(Url::to('@backendUrl' . '/uploads/' . $new->image), ['class' => 'img-fluid img-thumbnail fit-content"', 'alt' => $new->title]) ?>
-
+        <div class="row">
+            <?php foreach ($news as $new): ?>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card shadow-sm border-0 h-100">
+                        <div class="card-img-wrapper position-relative overflow-hidden">
+                            <?= Html::img(Url::to('@backendUrl' . '/uploads/' . $new->image), [
+                                'class' => 'img-fluid rounded-top', 
+                                'alt' => Html::encode($new->title), 
+                                'loading' => 'lazy',
+                                'style' => 'width: 100%; height: 200px; object-fit: cover;'
+                            ]) ?>
+                        </div>
                         <div class="card-body">
                             <!-- post meta -->
-                            <ul class="list-inline mb-3">
-                                <!-- post date -->
-                                <li class="list-inline-item mr-3 ml-0"><?= $new->created_at ?></li>
-                                <!-- author -->
-                                <li class="list-inline-item mr-3 ml-0"><?= $new->author_name ?></li>
+                            <ul class="list-inline text-muted mb-2 small">
+                                <li class="list-inline-item"><?= Yii::$app->formatter->asDate($new->created_at, 'long') ?></li>
+                                <li class="list-inline-item"><?= Html::encode($new->author_name) ?></li>
                             </ul>
-                            <a href="blog-single.html">
-                                <h4 class="card-title"><?= $new->title ?></h4>
+                            <!-- News title -->
+                            <a href="<?= Url::to(['/news/get-single-news', 'news' => $new->id]) ?> ?>" class="text-dark">
+                                <h5 class="card-title mb-3"><?= Html::encode($new->title) ?></h5>
                             </a>
-                            <a href="blog-single.html" class="btn btn-primary btn-sm">read more</a>
+                            <a href="<?= Url::to(['/news/get-single-news', 'news' => $new->id]) ?>" class="btn btn-outline-primary btn-sm">Read More</a>
                         </div>
                     </div>
-                </article>
-            </div>
-        <?php endforeach; ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
     </div>
 </section>
+
+<style>
+    .card-img-wrapper {
+        position: relative;
+        height: 200px;
+        background-color: #f7f7f7;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+        transition: all 0.3s ease-in-out;
+    }
+    .card-title {
+        font-weight: 600;
+    }
+</style>
