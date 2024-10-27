@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\models\BookExpert;
 use Yii;
 
 /**
@@ -13,7 +14,7 @@ use Yii;
  * @property string $image
  * @property string|null $created_at
  *
- * @property Booking[] $bookings
+ * @property BookExpert[] $bookExperts
  */
 class Expert extends \yii\db\ActiveRecord
 {
@@ -53,12 +54,12 @@ class Expert extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Bookings]].
+     * Gets query for [[BookExperts]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getBookings()
+    public function getBookExperts()
     {
-        return $this->hasMany(Booking::class, ['expert_id' => 'id']);
+        return $this->hasMany(BookExpert::class, ['expert_id' => 'id']);
     }
 }

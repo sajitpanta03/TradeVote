@@ -13,7 +13,7 @@ class Post extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'content'], 'required'],
+            [['name', 'content', 'image'], 'required'],
             [['upvote', 'downvote'], 'integer'],
             [['image'], 'file'],
             [['created_at'], 'safe'],

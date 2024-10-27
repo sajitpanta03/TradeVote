@@ -5,7 +5,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-$this->title = 'TradeVote';
+$this->title = 'tradevote';
 
 $this->registerCss('
 .custom_container {

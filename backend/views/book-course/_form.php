@@ -1,5 +1,8 @@
 <?php
 
+use common\models\Course;
+use common\models\User;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -12,11 +15,24 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'user_id')->textInput() ?>
+    <?= $form->field($model, 'user_id')->dropDownList(
+        ArrayHelper::map(
+            User::find()->all(),
+            'id',
+            'username'
+        ),
+        ['prompt' => 'Select a User']
+    ) ?>
 
-    <?= $form->field($model, 'course_id')->textInput() ?>
+    <?= $form->field($model, 'course_id')->dropDownList(
+        ArrayHelper::map(
+            Course::find()->all(),
+            'id',
+            'name'
+        ),
+        ['prompt' => 'Select a course']
+    ) ?>
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

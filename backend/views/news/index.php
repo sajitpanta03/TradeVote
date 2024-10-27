@@ -30,12 +30,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'author_name',
             'title',
             'content:ntext',
-            'image',
-            'created_at',
+            [
+                'attribute' => 'image' ,
+                'format' => 'html',
+                'value' => function($model) {
+                    return Html::img(Url::to('@web/uploads/' . $model->image), ['width' => 100]);
+                },
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, News $model, $key, $index, $column) {

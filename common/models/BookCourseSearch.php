@@ -5,6 +5,7 @@ namespace common\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\BookCourse;
+use yii\data\Pagination;
 
 /**
  * BookCourseSearch represents the model behind the search form of `common\models\BookCourse`.
@@ -14,10 +15,15 @@ class BookCourseSearch extends BookCourse
     /**
      * {@inheritdoc}
      */
+
+    public $username;
+    public $email;
+
     public function rules()
     {
         return [
-            [['id', 'user_id', 'course_id'], 'integer'],
+            [['id'], 'integer'],
+            [['user_id', 'course_id', 'username', 'email'], 'safe'],
             [['created_at'], 'safe'],
         ];
     }
@@ -42,10 +48,14 @@ class BookCourseSearch extends BookCourse
     {
         $query = BookCourse::find();
 
-        // add conditions that should always apply here
+        $count = $query->count(5);
 
+        $pagination = new Pagination(['totalCount' => $count]);
+
+        // add conditions that should always apply here
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => $pagination,
         ]);
 
         $this->load($params);
@@ -56,13 +66,20 @@ class BookCourseSearch extends BookCourse
             return $dataProvider;
         }
 
+
+        $query->joinWith('user')
+            ->joinWith('course');
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'user_id' => $this->user_id,
-            'course_id' => $this->course_id,
             'created_at' => $this->created_at,
         ]);
+
+
+        $query->andFilterWhere(['like', 'user.username', $this->username])
+            ->andFilterWhere(['like', 'user.email', $this->email])
+            ->andFilterWhere(['like', 'course.name', $this->course_id]);
 
         return $dataProvider;
     }

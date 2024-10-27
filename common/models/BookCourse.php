@@ -32,8 +32,8 @@ class BookCourse extends \yii\db\ActiveRecord
     {
         return [
             [['user_id'], 'required'],
-            [['user_id', 'course_id'], 'integer'],
-            [['created_at'], 'safe'],
+            [[], 'integer'],
+            [['created_at', 'user_id', 'course_id'], 'safe'],
             [['course_id'], 'exist', 'skipOnError' => true, 'targetClass' => Course::class, 'targetAttribute' => ['course_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];

@@ -30,8 +30,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'user_id',
-            'course_id',
+            [
+                'attribute' => 'user_id',
+                'format' => 'html',
+                'value' => fn($model) => $model->user->username,
+            ],
+            [
+                'attribute' => 'course_id',
+                'format' => 'html',
+                'value' => fn($model) => $model->course->name
+            ],
             'created_at',
         ],
     ]) ?>

@@ -1,5 +1,5 @@
 <?php
-Yii::setAlias('@backendUrl', 'http://localhost:8080/backend/web');
+Yii::setAlias('@backendUrl', 'http://localhost:8080/');
 
 
 

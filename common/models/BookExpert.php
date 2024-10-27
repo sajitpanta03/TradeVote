@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\models\Expert;
 use Yii;
 
 /**

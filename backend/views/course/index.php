@@ -13,45 +13,45 @@ use yii\grid\GridView;
 $this->title = 'Courses';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="course-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="d-flex">
+    <!-- Sidebar Section -->
 
-    <p>
-        <?= Html::a('Create Course', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <!-- Main Content Section -->
+    <div class="course-index">
+        <h1><?= Html::encode($this->title) ?></h1>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+        <p>
+            <?= Html::a('Create Course', ['create'], ['class' => 'btn btn-success']) ?>
+        </p>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+        <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-            'id',
-            'name',
-            'content:ntext',
-            [
-                'attribute' => 'image',
-                'format' => 'html',
-                'value' => function ($model) {
-                    return Html::img(Url::to('@web/uploads/' . $model->image), ['width' => '100']);
-                },
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+                'name',
+                'content:ntext',
+                [
+                    'attribute' => 'image',
+                    'format' => 'html',
+                    'value' => function ($model) {
+                        return Html::img(Url::to('@web/uploads/' . $model->image), ['width' => '100']);
+                    },
+                ],
+                'price',
+                'duration',
+                'start_date',
+                'end_date',
+                [
+                    'class' => ActionColumn::className(),
+                    'urlCreator' => function ($action, Course $model, $key, $index, $column) {
+                        return Url::toRoute([$action, 'id' => $model->id]);
+                    }
+                ],
             ],
-            'price',
-            'duration',
-            'start_date',
-            'end_date',
-            'created_at',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Course $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
-            ],
-        ],
-    ]); ?>
-
-
+        ]); ?>
+    </div>
 </div>
