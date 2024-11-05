@@ -4,5 +4,8 @@ RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-# Otherwise forward it to index.php
-RewriteRule . index.php
+# Forward admin routes to backend/web
+RewriteRule ^admin(/.*)?$ backend/web/$1 [L]
+
+# Forward everything else to frontend/web/index.php
+RewriteRule ^(.*)$ frontend/web/index.php?q=$1 [L,QSA]

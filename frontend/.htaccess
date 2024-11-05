@@ -1,0 +1,11 @@
+RewriteEngine on
+
+# If a directory or a file exists, use it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Set the default route to frontend/web/index.php
+RewriteRule ^(.*)$ frontend/web/index.php?q=$1 [L,QSA]
+
+# Forward admin routes to backend/web
+RewriteRule ^admin(/.*)?$ backend/web/$1 [L]

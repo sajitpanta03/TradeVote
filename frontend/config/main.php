@@ -1,5 +1,5 @@
 <?php
-Yii::setAlias('@backendUrl', 'http://localhost:8080/');
+Yii::setAlias('@backendUrl', 'http://localhost:8080/backend/web');
 
 
 
@@ -48,7 +48,12 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                // Define your custom rules here
                 '' => 'site/index',
+                'about' => 'frontend/web/site/about', // Set the homepage route
+                'landing-page' => 'site/landing-page', // Custom rule for landing-page
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
             ],
         ],
 
